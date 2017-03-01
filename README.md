@@ -1,4 +1,4 @@
 # hello-world
-my first repository
-this is my first come into github 
+个人平时学习javascript写的小demo
+
 <p>to improve myself hahaha</p>
