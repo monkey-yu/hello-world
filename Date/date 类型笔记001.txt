@@ -1,0 +1,2 @@
+1.创建一个日期对象，使用new 操作符和Date构造函数,如下：
+	var now = new Date(); 
