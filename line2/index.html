@@ -1,0 +1,18 @@
+<!DOCTYPE>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>echart line图练习</title>
+</head>
+<!--加载AngularJS-->
+<script src="plugins/angular/angular.js"></script>
+<!--加载ECharts-->
+<script src="plugins/echarts-2.2.7/echarts-all.js"></script>
+<script src="js/app.controller.js"></script>
+<script src="js/line.directive.js"></script>
+
+<body ng-app="app" ng-controller="lineCtrl">
+    <line id="main" legend="legend" item="item" data="data"></line>
+</body>
+</html>
