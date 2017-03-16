@@ -1,0 +1,90 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta name="" charset="utf-8" content="">
+    <title>jquery-tabs</title>
+    <link rel="shortcut icon" href="../public/image/favicon.png">
+    <link rel="stylesheet" type="text/css" href="../public/style/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="../public/style/common.css">
+    <style type="text/css">
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .tabs {
+            margin: 0 auto 20px;
+        }
+        
+        .tabs ul {
+            overflow: hidden;
+        }
+        
+        .tabs1 .nav {
+            margin-bottom: 10px;
+        }
+        
+        .tabs1 .nav li {
+            float: left;
+            margin: 0 10px;
+            border-bottom: 1px solid #fff;
+        }
+        
+        .tabs1 .nav a {
+            display: block;
+            line-height: 38px;
+        }
+        
+        .tabs1 .nav .active {
+            border-bottom: 1px solid #000;
+        }
+        
+        .tabs1 .content {
+            height: 240px;
+            color: #666;
+            overflow: hidden;
+        }
+        
+        .tabs1 .content li {
+            height: 240px;
+            background: #f4f4f4;
+            color: #fff;
+        }
+    </style>
+    <script type="text/javascript" src="../public/script/jquery.min.js"></script>
+    <script type="text/javascript" src="../code/jquery.tabs.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="tabs tabs1">
+            <ul class="nav">
+                <li><a href="javascript:;">标签一</a></li>
+                <li><a href="javascript:;">标签二</a></li>
+                <li><a href="javascript:;">标签三</a></li>
+                <li><a href="javascript:;">标签四</a></li>
+            </ul>
+            <ul class="content">
+                <li style="background: red">这里是内容1</li>
+                <li style="background: yellow">这里是内容2</li>
+                <li style="background: blue">这里是内容3</li>
+                <li style="background: purple">这里是内容4</li>
+            </ul>
+        </div>
+        <div class="code">
+            <p>$(".tabs1").tabs({triggerType:'click'});</p>
+        </div>
+        <script type="text/javascript">
+            $(".tabs1").tabs({
+                triggerType: 'click'
+            });
+            s
+        </script>
+    </div>
+    <div style="display: none;">
+        <script src="http://s11.cnzz.com/z_stat.php?id=1260218562&web_id=1260218562"></script>
+    </div>
+</body>
+
+</html>
