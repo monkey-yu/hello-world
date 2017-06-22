@@ -1,0 +1,12 @@
+1.Math.random()
+   random函数返回值
+   返回0和1之间的伪随机数，可能为0，但总是小于1，[0,1)
+
+    document.write(Math.random()*(m-n)+n);
+   返回n-m的随机数
+
+2.Math.round() 函数返回一个数字四舍五入后最接近的整数值。
+   例如： x = Math.Round(4.45)
+         // x=4
+
+3.
