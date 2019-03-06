@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>轮播</title>
+    <style>
+        .wrapper {
+            position: relative;
+            width: 900px;
+            height: 350px;
+            overflow: hidden;
+            z-index: 10;
+        }
+        #list {
+            position: absolute;
+            /*float: left;*/
+        }
+        #list img {
+            width: 900px;
+            height: 350px;
+            float: left;
+        }
+        #buttons {
+            width: 100px;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            right: 50%;
+            margin-left: -50px;
+            text-align: center;
+            cursor: pointer;
+        }
+        span {
+            /*margin:10px;*/
+            color: #fff;
+        }
+
+        .on {
+            color: green;
+        }
+
+        .arrow {
+            position: absolute;
+            color: #999;
+            font-size: 50px;
+            line-height: 130px;
+            display: none;
+            cursor: pointer;
+            /*border:1px solid;*/
+        }
+
+        .wrapper:hover .arrow {
+
+            display: block;
+        }
+
+        #left {
+            left: 10px;
+        }
+
+        #right {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="list" style="left:-900px">
+            <img src="images/reading.jpg" alt="banner3">
+            <img src="images/star.jpg" alt="banner1">
+            <img src="images/tree.jpg" alt="banner2">
+            <img src="images/reading.jpg" alt="banner3">
+            <img src="images/star.jpg" alt="banner1">
+        </div>
+        <div id="buttons">
+            <span index='1' class="on">●</span>
+            <span index='2'>●</span>
+            <span index='3'>●</span>
+        </div>
+        <div id="left" class="arrow">&lt;</div>
+        <div id="right" class="arrow">&gt;</div>
+    </div>
+    <script>
+        var list = document.getElementById('list'),
+            wrapper = document.getElementsByClassName('wrapper')[0],
+            left_ = document.getElementById('left'),
+            right_ = document.getElementById('right'),
+            buts = document.getElementById('buttons'),
+            index = 1,
+            timer = null,
+            startx = 0,
+            endx = 0,
+            isanimating = false;
+        //手指滑动事件，手指触摸屏幕获取x坐标，手指滑动在获取手指所在的x坐标，相减判断手指移动的方向来确定向左还是向右
+        list.ontouchstart = function (e) {
+            clearTimeout(timer)
+            var event = getEvent(e)
+            startx = event.touches[0].clientX
+        }
+        list.ontouchmove = function (e) {
+            endx = event.changedTouches[0].clientX
+
+            if (endx < startx) {
+                left_.onclick()
+            } else {
+                right_.onclick()
+            }
+        }
+        list.ontouchend = function (e) {
+            play()
+
+        }
+        //点击箭头事件，左右点击
+        left_.onclick = function (e) {
+            if (isanimating) return
+            animation(-900)
+            index--;
+            if (index <= 0) {
+                index = 3;
+            }
+            showBtn()
+        }
+        right_.onclick = function (e) {
+            if (isanimating) return
+            animation(900)
+            index++;
+            if (index > 3) {
+                index = 1;
+            }
+            // console.log(0)
+            showBtn()
+        }
+        //点击小按钮事件
+        buts.onclick = function (e) {
+            var event = getEvent(e)
+            var target = getTarget(event)
+            if (target.tagName === 'SPAN') {
+                var i = parseInt(target.getAttribute('index'))
+                animation((i - index) * (900))
+                index = i;
+                showBtn(target)
+            }
+        }
+
+        function getTarget(event) {
+            return event.target ? event.target : event.srcElement;
+        }
+
+        function getEvent(e) {
+            return e ? e : window.event
+
+        }
+
+        function animation(offset) {
+            isanimating = true
+            var interValMove = 10,
+                timer = 300,
+                speed = parseInt(offset / 30),
+                left = parseInt(list.style.left) + offset;
+
+            function action() {
+                if ((speed < 0 && parseInt(list.style.left) > left) || (speed > 0 && parseInt(list.style.left) < left)) {
+                    list.style.left = parseInt(list.style.left) + speed + 'px';
+                    setTimeout(action, interValMove)
+                } else {
+                    isanimating = false
+                    list.style.left = left + 'px'
+                    if (parseInt(list.style.left) <= -3600) {
+                        list.style.left = -900 + 'px'
+
+                    } else if (parseInt(list.style.left) == 0) {
+                        list.style.left = -2700 + 'px'
+
+                    }
+                }
+            }
+            action()
+        }
+
+        function showBtn(target) {
+            var children = buts.children,
+                len = children.length
+            for (var i = 0; i < len; i++) {
+                children[i].classList.remove('on')
+            }
+            if (arguments.length > 0) {
+                target.classList.add('on')
+            } else {
+                children[index - 1].classList.add('on')
+            }
+        }
+
+        function play() {
+            timer = setTimeout(function () {
+                right_.onclick()
+                timer = setTimeout(arguments.callee, 3000)
+            }, 3000)
+        }
+
+        wrapper.onmouseenter = function (e) {
+            clearTimeout(timer)
+
+        }
+        wrapper.onmouseleave = function (e) {
+            play()
+
+        }
+        play()
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,3 @@
 # hello-world
-个人平时学习javascript写的小demo
-
-<p>to improve myself hahaha</p>
+一些乱七八糟的东西！！
+每个文件夹单独是一个小demo,可能是些知识整理，插件实现，或一个小功能。
