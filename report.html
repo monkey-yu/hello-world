@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/ancestryReporter/css/report.css">
+    <link rel="stylesheet" href="../../static/ancestryReporter/css/zuyuan_map.css">
+    <script src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts-en.common.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="container" style="width:148mm;height: 72mm;display:none"></div>
+    <div class="page">
+        <header>
+            <div class="header_title">
+                <span class="zuyuan">祖源分析报告</span>
+                <span class="customer_name">
+                    <span class="name">客户姓名：</span>
+                    <span class="underline">{{customer_name}}</span>
+                </span>
+                <span class="sample_num">
+                    样本编号：{{sample_id}}
+                </span>
+            </div>
+        </header>
+        <img class="logo" src="../../static/ancestryReporter/img/logo-04.png" alt="">
+        <div class="content-1" style=" margin:3.5mm 0 5mm 9.1mm;">
+            <p class="title">您的祖源分析结果概览：</p>
+            <img class="echart_pic" src="" alt="waiting" />
+        </div>
+        <div class="content-2">
+            <p class="title" style="margin-bottom:0px">您的祖源成分地理位置分布：</p>
+            <p style="margin: 0;font-size: 2.5mm;margin-bottom:1mm">请注意：以下地图上区域色块与上图环状图并非一一对应</p>
+            <div class="map-box china-map">
+
+                <img class="china-map-bg" style="display:block" src="../../static/ancestryReporter/img/china-map.png"
+                    alt="">
+                <img class="world-map-bg" style="display:none" src="../../static/ancestryReporter/img/world-map.png"
+                    alt="">
+            </div>
+        </div>
+        <div class="content-3">
+            <p class="title">您的全部祖源成分：</p>
+            <div class="table-box">
+                <!-- continent-name下一个标签加space p标签；偶数行td 添加space-td 的td -->
+                <table>
+                    <tr>
+                        {% for continent in ancestry_data %}
+                        <td>
+                            {% for item in continent %} {% if item.parent %}
+                            <p class="space-9"></p>
+                            <p class="continent-name">{{item.name}} {{item.value}}</p>
+                            <p class="space-4"></p>
+                            {% else %}
+                            <p class="detail-name"><span>{{item.name}}</span> <span>{{item.value}}</span></p>
+                            {% endif %} {% endfor %}
+                        </td>
+                        {% if not forloop.last %}
+                        <td class="space-td"></td>
+                        {% endif%} {% endfor %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <footer>
+            <div class="footer-line">
+                <div class="bt-footer-line">
+                    <span class="baomi-text">保密资料 Confidential Information | 01</span>
+                </div>
+            </div>
+            <div class="footer-content">
+                <span style="margin-right: 7mm;">上海医明康德医疗健康科技有限公司</span> |
+                <span style="margin: 0 14mm 0 7mm;">上海市浦东新区芳甸路1155号浦东嘉里城3103A室</span>
+                <span style="margin-right: 7mm;">服务热线：400-820-2299</span> |
+                <span style="margin-left: 7mm;">www.51kangma.com</span>
+            </div>
+        </footer>
+
+
+    </div>
+    <!-- 第二页 -->
+    <div class="page">
+        <header>
+            <div class="header_title">
+                <span class="zuyuan">祖源分析报告</span>
+                <span class="customer_name">
+                    <span class="name">客户姓名：</span>
+                    <span class="underline">{{customer_name}}</span>
+                </span>
+                <span class="sample_num">
+                    样本编号：{{sample_id}}
+                </span>
+            </div>
+        </header>
+        <img class="logo" src="../../static/ancestryReporter/img/logo-04.png" alt="">
+        <div class="page2-content">
+            <div class="item">
+                <p class="desc"><img src="../../static/ancestryReporter/img/01icon.png">人类遗传多样性与祖源分析</p>
+                <p class="article">
+                    <span class="text-index-width"></span>人类在繁衍过程中主要通过DNA等遗传物质向后代传递各自的遗传特征。在漫长的历史进程中，通过地理分隔及人类迁徙，相同起源的人类逐渐形成了不同的族群。这些族群受到自然选择和随机漂变的影响，各自积累了其独特的遗传特征。而随着历史事件和文明发展造成的族群间交流、融合与再分隔，这些遗传特征也随着DNA在各个族群间进行着传递与重组。因此，通过分析个人DNA中上述的遗传特征，能够从遗传学角度对个体的祖先来源进行回溯。
+                </p>
+            </div>
+            <div class="item">
+                <p class="desc"><img src="../../static/ancestryReporter/img/02icon.png">分析方法与参考人群</p>
+                <p class="article">
+                    <span class="text-index-width"></span>本检测主要基于个体全基因组测序数据，通过比对个人基因组和参考人群基因组上的遗传多态性位点，来推断个体的祖先来源。
+                    <br>
+                    <span class="text-index-width"></span>本检测分析的参考人群数据来自HapMap、1000 Genomes Project、Human Genome
+                    Diversity Project等公共数据集，共计68个参考族群，覆盖了六大洲和11个重点区域，并针对中国人群进行了特别优化，采用了更加全面的东亚地区的参考人群。
+                </p>
+            </div>
+            <div class="item">
+                <p class="desc"><img src="../../static/ancestryReporter/img/03icon.png">免责声明</p>
+                <p class="article">
+                    <span class="text-index-width"></span>本报告结果基于当前分析系统版本（v1.0）。由于祖源分析的结果一定程度上受到算法和参考人群数据的影响，不排除算法或参考数据更新后同一样本的分析结果出现变动的可能性。
+                    <br>
+                    <span class="text-index-width"></span>由于减数分裂和染色体重组的随机性，有实际亲缘关系的个体间出现一定程度祖源结果偏差属于正常现象。祖源分析的结果无法作为判定亲缘关系是否存在或远近的依据。
+                </p>
+            </div>
+        </div>
+        <div class="reference">
+            <p class="reference-title">参考文献</p>
+            <div class="reference-box">
+                <ul class="reference-ul">
+                    <li> International HapMap C (2003). The International HapMap Project. Nature 426(6968): 789-796.</li>
+                    <li> Li JZ, Absher DM, Tang H, Southwick AM, Casto AM, Ramachandran S et al (2008). Worldwide human relationships inferred from genome-wide patterns of variation. Science 319(5866): 1100-1104.</li>
+                    <li> Xu S, Yin X, Li S, Jin W, Lou H, Yang L et al (2009). Genomic dissection of population substructure of Han Chinese and its implication in association studies. American journal of human genetics 85(6): 762-774.</li>
+                    <li> Holsinger KE, Weir BS (2009). Genetics in geographically structured populations: defining, estimating and interpreting F(ST). Nature reviews Genetics 10(9): 639-650.</li>
+                    <li> Consortium HP-AS, Abdulla MA, Ahmed I, Assawamakin A, Bhak J, Brahmachari SK et al (2009). Mapping human genetic diversity in Asia. Science 326(5959): 1541-1545.</li>
+                    <li> Genomes Project C, Abecasis GR, Altshuler D, Auton A, Brooks LD, Durbin RM et al (2010). A map of human genome variation from population-scale sequencing. Nature 467(7319): 1061-1073.</li>
+                    <li>Lu DS, Lou HY, Yuan K, Wang XJ, Wang YC, Zhang C et al (2016). Ancestral Origins and Genetic History of Tibetan Highlanders. American journal of human genetics 99(3): 580-594.</li>
+                </ul>
+
+
+
+            </div>
+        </div>
+        <footer>
+            <div class="footer-line">
+                <div class="bt-footer-line">
+                    <span class="baomi-text">保密资料 Confidential Information | 01</span>
+                </div>
+            </div>
+            <div class="footer-content">
+                <span style="margin-right: 7mm;">上海医明康德医疗健康科技有限公司</span> |
+                <span style="margin: 0 14mm 0 7mm;">上海市浦东新区芳甸路1155号浦东嘉里城3103A室</span>
+                <span style="margin-right: 7mm;">服务热线：400-820-2299</span> |
+                <span style="margin-left: 7mm;">www.51kangma.com</span>
+            </div>
+        </footer>
+    </div>
+    <a id="download" href="" download style="display:none">下载报告</a>
+
+
+    <script type="text/javascript">
+        // var is_mapCallBack = false;
+        var sample_id = '',
+            host = location.host;
+        var url = location.search;
+        sample_id = url.substr(11);
+        $.ajax({
+            type: "GET",
+            url: "{{host}}/ancestry-analysis/sample/?sample_id={{sample_id}}",
+            dataType: "json",
+            success: function (data) {
+                echartCallBack(data);
+            }
+        });
+        // 获取后端提供的map_data
+        function mapCallBack(context, legendDataName, optionColor) {
+            var world_color = [{
+                color: '#a41f24',
+                opacity: '0.6'
+            }, {
+                color: '#76bc40',
+                opacity: '0.7'
+            }, {
+                color: '#3364af',
+                opacity: '0.70'
+            }];
+            var china_color = [{
+                color: '#a41f24',
+                opacity: '0.7'
+            }, {
+                color: '#f5ce22',
+                opacity: '0.7'
+            }, {
+                color: '#734c9c',
+                opacity: '0.7'
+            }, {
+                color: '#76bc40',
+                opacity: '0.7'
+            }, {
+                color: '#3364af',
+                opacity: '0.7'
+            }];
+            // context.map_data.forEach((item) => {
+            for (let j = 0; j < context.map_data.length; j++) {
+                let item = context.map_data[j];
+                for (let i = 0; i < legendDataName.length; i++) {
+                    if (item.name.indexOf(legendDataName[i]) > -1) {
+                        // china_color.push({
+                        //     color: optionColor[i],
+                        //     opacity: '0.7'
+                        // });
+                        china_color[j].color = optionColor[i];
+                        break;
+                    } else if (item.name == legendDataName[i].name) {
+                        china_color[j].color = optionColor[i + 1];
+                        // china_color.push({
+                        //     color: optionColor[i + 1],
+                        //     opacity: '0.7'
+                        // });
+                        break;
+                    }
+                }
+            }
+            // })
+            var color;
+            if (context.map_type == '中国地图') {
+                $('.china-map-bg').css('display', 'block');
+                $('.world-map-bg').css('display', 'none');
+                color = china_color;
+            } else {
+                $('.world-map-bg').css('display', 'block');
+                $('.china-map-bg').css('display', 'none');
+                color = world_color;
+            }
+            var mapData = context.map_data;
+            var style = '<style>';
+            // 添加map 的html
+            // for (var j = 0; j < mapData.length; j++) {
+            for (var j = 0; j < mapData.length; j++) {
+                $(".china-map").append(
+                    ' <div class="item item01"><i class="icon-item"></i><span></span></div>'
+                )
+            }
+
+            // }
+            // 添加map 的css  
+            $(".china-map .item").each(function (i, item) {
+                $(this).css({
+                    width: mapData[i].width,
+                    height: mapData[i].height,
+                    top: mapData[i].top,
+                    left: mapData[i].left
+                });
+                $(this).children('span').text(mapData[i].name);
+                $(this).children('span').css({
+                    display: 'block',
+                    top: -(parseFloat(mapData[i].height) / 2 + 1.41) + 'mm'
+                });
+                $(this).children('i').css({
+                    fontSize: mapData[i].height,
+                    color: color[i].color,
+                    opacity: color[i].opacity
+                });
+                style += ".china-map .item:nth-of-type(" + (i + 1) + ") i:before{content:'" + mapData[i].content +
+                    "'}";
+            });
+
+            style += "</style>";
+            $(style).appendTo('head');
+        }
+
+
+        // echarts 饼图
+        function echartCallBack(context) {
+            var imageSrc = '';
+            var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            var app = {};
+            option = null;
+            var seriesData = []; // series 取的data
+            var legendDataName = []; // legend中取name
+            var legendDataValue = []; // legend中取value值
+            var originData = context.sample_data;
+            var optionColor = ['#62a1da', '#ffd836', '#e61d39', '#93e54c', '#954ba0', '#fd8b2b', '#077757', '#dc3972',
+                '#0b475e'
+            ]; // option color 默认的8个色
+
+            originData.forEach((item) => {
+                // 处理浮点数问题
+                item.continent.value = Number(item.continent.value).toFixed(1);
+                // 处理小于0.1的值
+                if (item.continent.value < 0.1) {
+                    item.continent.value = '<0.1'
+                }
+                legendDataValue.push(item.continent);
+                legendDataName.push({
+                    name: item.continent.name,
+                    icon: 'none',
+                    textStyle: {
+                        fontSize: '14',
+                        color: '#3f70b1',
+                        padding: [5, 10, 6, -12]
+                    }
+                }, )
+
+                //  大类的'其它' 值加入seriesData
+                if (item.continent.name == '其它') {
+                    seriesData.push({
+                        name: item.continent.name,
+                        value: item.continent.value
+                    })
+                } else {
+                    seriesData.push({
+                        name: item.continent.name,
+                        value: 0
+                    })
+                }
+                optionColor.splice(seriesData.length - 1, 0, '#606060');
+                for (i in item.details) {
+                    seriesData.push(item.details[i]);
+                    item.details[i].value = Number(item.details[i].value).toFixed(1);
+                    if (item.details[i].value < 0.1) {
+                        item.details[i].value = '<0.1'
+                    }
+                    legendDataValue.push(item.details[i]);
+                    legendDataName.push(item.details[i].name)
+                }
+            });
+            option = {
+                legend: {
+                    itemHeight: 6, // 设置图例的icon大小
+                    itemWidth: 6,
+                    type: 'plain',
+                    orient: 'vertical',
+                    align: 'auto',
+                    right: 10,
+                    top: 0,
+                    bottom: 20,
+                    itemGap: 6,
+                    formatter: function (name) {
+                        for (var i = 0; i < legendDataValue.length; i++) {
+                            if (name == legendDataValue[i].name) {
+                                return name + legendDataValue[i].value + '%';
+                            }
+                        }
+                    },
+                    data: [],
+                    textStyle: {
+                        fontSize: '12',
+                        color: '#5b5b5b',
+                        padding: [0, 0, 2, 0]
+                    }
+                },
+                series: [{
+                    name: '祖源分析',
+                    type: 'pie',
+                    radius: ['52', '115'],
+                    center: ['150', '50%'],
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: []
+                }]
+            };
+            if (option && typeof option === "object") {
+                option.legend.data = legendDataName;
+                option.series[0].data = seriesData;
+                option.color = optionColor;
+                mapCallBack(context, legendDataName, optionColor);
+                myChart.setOption(option, true);
+            }
+            saveImg = function () {
+                this.imageSrc = myChart.getDataURL({
+                    pixelRatio: 2,
+                    backgroundColor: '#fff',
+                    type: 'png',
+                });
+            };
+            var self = this;
+            myChart.on('finished', function () {
+                saveImg();
+                $(".echart_pic").attr("src", self.imageSrc);
+                postHtml();
+
+            });
+
+        }
+
+        // 传递html string
+        function postHtml() {
+            var headerStr = $('head').html();
+            var bodyStr = $('body').html();
+            var styleStr = $('html>style').html()
+            var postData = {
+                sample_id: sample_id,
+                header: headerStr,
+                body: bodyStr
+            };
+            $.ajax({
+                url: '/ancestry-analysis/generate/',
+                type: 'POST',
+                data: postData,
+                // timeout: 1000,
+                error: function () {
+                    alert('generate pdf Error');
+                },
+
+                success: function (result) {
+                    // console.log('result',result);
+                    var url = result.url.substr(14);
+                    $('#download').attr('href', url);
+                    $('#download')[0].click();
+                }
+
+            });
+
+        };
+    </script>
+</body>
+
+</html>
